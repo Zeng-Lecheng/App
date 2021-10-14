@@ -1,12 +1,14 @@
 import React from 'react';
-import {Text, Button, View} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, Button, View } from 'react-native';
 
 const HomeScreen = ({ navigation }) => {
     return (
-        <View style={{ alignItems: "flex-start" }}>
-            
+        <View style={{ alignItems: "flex-start", padding: 10}}>
+            <Button
+                color="#82E0AA"
+                title="View your inventory"
+                onPress={() => navigation.navigate('Viewer')}
+            />
         </View>
     );
 };

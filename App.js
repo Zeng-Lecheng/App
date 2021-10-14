@@ -1,24 +1,34 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from './components/Home'
-import ProfileScreen from './components/Sub1'
+import InventoryViewer from './components/Viewer'
+import Editor from './components/Editor'
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
-const MyStack = () => {
+const App = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
-                    options={{ title: 'Welcome' }}
+                    options={{ title: 'Inventory Tracker' }}
                 />
-                <Stack.Screen name="Profile" component={ProfileScreen} />
+                <Stack.Screen 
+                    name="Viewer" 
+                    component={InventoryViewer} 
+                    options={{title: "Your inventory"}}
+                />
+                <Stack.Screen
+                    name="Editor"
+                    component={Editor}
+                    options={{title: "Editor"}}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
 };
 
-export default MyStack;
+export default App
