@@ -65,13 +65,13 @@ const Editor = ({ navigation, route }) => {
     // useEffect(() => { storeData(data) }, [data])
 
     return (
-        <View style={styels.view}>
-            <View style={[styels.view, { flexDirection: "row" }]}>
-                <Text style={styels.entryName}>
+        <View style={styles.view}>
+            <View style={[styles.view, { flexDirection: "row" }]}>
+                <Text style={styles.entryName}>
                     Name: 
                 </Text>
                 <TextInput
-                    style={styels.input}
+                    style={styles.input}
                     value={nameInput}
                     onChangeText={(t) => {
                         setNameInput(t)
@@ -79,12 +79,12 @@ const Editor = ({ navigation, route }) => {
                     }}
                 />
             </View>
-            <View style={[styels.view, { flexDirection: "row" }]}>
-                <Text style={styels.entryName}>
+            <View style={[styles.view, { flexDirection: "row" }]}>
+                <Text style={styles.entryName}>
                     Content: 
                 </Text>
                 <TextInput
-                    style={styels.input}
+                    style={styles.input}
                     value={contentInput}
                     onChangeText={(t) => {
                         setContentInput(t)
