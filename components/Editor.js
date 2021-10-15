@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Text, Button, View, TextInput } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import styels from './Style'
 import styles from './Style'
 
 const Editor = ({ navigation, route }) => {
@@ -54,6 +53,14 @@ const Editor = ({ navigation, route }) => {
         }
     }
 
+    const save = () => {
+        setData(modifyData(data, nameInput, {
+            name: nameInput,
+            content: contentInput
+        }))
+        storeData(data)
+    }
+
     useEffect(() => { getData() }, [])
     // useEffect(() => { storeData(data) }, [data])
 
@@ -90,10 +97,7 @@ const Editor = ({ navigation, route }) => {
                 color="#85C1E9"
                 onPress={() => {
                     setSaveStatus(true)
-                    setData(modifyData(data, nameInput, {
-                        name: nameInput,
-                        content: contentInput
-                    }))
+                    save()
                 }}
                 title="Save"
             />
@@ -102,7 +106,6 @@ const Editor = ({ navigation, route }) => {
                 color="#85C1E9"
                 onPress={() => {
                     navigation.navigate("Viewer")
-                    storeData(data)
                 }}
                 title="Back"
             />
@@ -110,7 +113,6 @@ const Editor = ({ navigation, route }) => {
                 color="#85C1E9"
                 onPress={() => {
                     navigation.navigate("Home")
-                    storeData(data)
                 }}
                 title="Home"
             />
