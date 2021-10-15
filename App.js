@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from './components/Home'
 import InventoryViewer from './components/Viewer'
 import Editor from './components/Editor'
+import About from './components/About'
 
 const Stack = createNativeStackNavigator()
 
@@ -25,6 +26,11 @@ const App = () => {
                     name="Editor"
                     component={Editor}
                     options={{title: "Editor"}}
+                />
+                <Stack.Screen
+                    name="About"
+                    component={About}
+                    options={{title: "About"}}
                 />
             </Stack.Navigator>
         </NavigationContainer>
