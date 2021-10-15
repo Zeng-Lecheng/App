@@ -4,20 +4,21 @@ const styles = StyleSheet.create(
     {
         view: {
             alignItems: "flex-start",
-            padding: 5
+            padding: 5,
         },
 
         entryName: {
-            fontSize: 20
+            fontSize: 20,
+            width: 200
         },
 
         entryContent: {
-            fontSize: 16
+            fontSize: 16,
         },
 
         input: {
             borderColor: "#C0C0C0",
-            borderWidth: 2,
+            borderBottomWidth: 2,
             height: 32,
             fontSize: 16
         }

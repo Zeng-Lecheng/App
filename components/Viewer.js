@@ -24,14 +24,17 @@ const InventoryViewer = ({ navigation, route }) => {
         var result = []
         for (var key in data) {
             result.push(
-                <Text style={styles.entryName}>
-                    {key}
-                </Text>
-            )
-            result.push(
-                <Text style={styles.entryContent}>
-                    {data[key].content}
-                </Text>
+                <View style={[styles.view, {
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                }]}>
+                    <Text style={[styles.entryName, { flex: 1 }]}>
+                        {key}
+                    </Text>
+                    <Text style={[styles.entryContent, { flex: 2, alignSelf:"flex-end" }]}>
+                        {data[key].content}
+                    </Text>
+                </View>
             )
         }
         return result
@@ -41,7 +44,7 @@ const InventoryViewer = ({ navigation, route }) => {
 
     return (
         <View style={styles.view}>
-            <View style={[styles.view, { flexDirection: "row", justifyContent: "space-between"}]}>
+            <View style={[styles.view]}>
                 {listInventory()}
             </View>
             <Button
