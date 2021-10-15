@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Text, Button, View, StyleSheet } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import styles from './Style'
+import { useIsFocused } from '@react-navigation/native'
 
 const InventoryViewer = ({ navigation, route }) => {
     let [data, setData] = useState({})
+
+    const isFocused = useIsFocused()
 
     const getData = async () => {
         try {
@@ -34,7 +37,7 @@ const InventoryViewer = ({ navigation, route }) => {
         return result
     }
 
-    useEffect(() => { getData() }, [])
+    useEffect(() => { getData() }, [isFocused])
 
     return (
         <View style={styles.view}>
