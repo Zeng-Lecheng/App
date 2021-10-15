@@ -29,12 +29,6 @@ const Editor = ({ navigation, route }) => {
         }
     }
 
-    const modifyData = (oldData, newKey, newValue) => {
-        var newData = oldData
-        newData[newKey] = newValue
-        return newData
-    }
-
     const saveHint = () => {
         if (saveStatus) {
             return (
@@ -54,15 +48,16 @@ const Editor = ({ navigation, route }) => {
     }
 
     const save = () => {
-        setData(modifyData(data, nameInput, {
+        var newData = data
+        newData[nameInput] = {
             name: nameInput,
             content: contentInput
-        }))
+        }
+        setData(newData)
         storeData(data)
     }
 
     useEffect(() => { getData() }, [])
-    // useEffect(() => { storeData(data) }, [data])
 
     return (
         <View style={styles.view}>
