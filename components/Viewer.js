@@ -8,12 +8,22 @@ const InventoryViewer = ({ navigation, route }) => {
     const [data, setData] = useState({})
     const isFocused = useIsFocused()
 
-    const MButton = (props) => {
+    const EButton = (props) => {
         return (
             <Button
                 title={props.title}
                 color={props.color}
                 onPress={() => { navigation.navigate("Editor", { name: props.name }) }}
+            />
+        )
+    }
+
+    const DButton = (props) => {
+        return (
+            <Button
+                title={props.title}
+                color={props.color}
+                onPress={() => { remove(props.name) }}
             />
         )
     }
@@ -27,6 +37,23 @@ const InventoryViewer = ({ navigation, route }) => {
         } catch (e) {
             console.log(e)
         }
+    }
+
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@data', jsonValue)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const remove = (name) => {
+        var newData = data
+        delete newData[name]
+        setData(newData)
+        storeData(data)
+        navigation.push("Viewer")
     }
 
     const listInventory = () => {
@@ -43,10 +70,15 @@ const InventoryViewer = ({ navigation, route }) => {
                     <Text style={[styles.entryContent, { flex: 2, alignSelf: "center" }]}>
                         {data[key].content}
                     </Text>
-                    <MButton
+                    <EButton
                         color="#85C1E9"
                         name={key}
                         title="Edit"
+                    />
+                    <DButton
+                        color="red"
+                        name={key}
+                        title="Delete"
                     />
                 </View>
             )
@@ -64,7 +96,7 @@ const InventoryViewer = ({ navigation, route }) => {
             <Button
                 color="#85C1E9"
                 onPress={() => navigation.navigate("Editor", { name: "" })}
-                title="Edit"
+                title="Add"
             />
 
             <Button
