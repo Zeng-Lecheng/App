@@ -5,7 +5,7 @@ import styles from './Style'
 
 const Editor = ({ navigation, route }) => {
     let [data, setData] = useState({})
-    let [nameInput, setNameInput] = useState("")
+    let [nameInput, setNameInput] = useState(route.params.name)
     let [contentInput, setContentInput] = useState("")
     let [saveStatus, setSaveStatus] = useState(false)
 

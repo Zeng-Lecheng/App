@@ -1,13 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Component } from 'react'
 import { Text, Button, View, StyleSheet } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import styles from './Style'
 import { useIsFocused } from '@react-navigation/native'
 
 const InventoryViewer = ({ navigation, route }) => {
-    let [data, setData] = useState({})
-
+    const [data, setData] = useState({})
     const isFocused = useIsFocused()
+
+    const MButton = (props) => {
+        return (
+            <Button
+                title={props.title}
+                color={props.color}
+                onPress={() => { navigation.navigate("Editor", { name: props.name }) }}
+            />
+        )
+    }
 
     const getData = async () => {
         try {
@@ -31,9 +40,14 @@ const InventoryViewer = ({ navigation, route }) => {
                     <Text style={[styles.entryName, { flex: 1 }]}>
                         {key}
                     </Text>
-                    <Text style={[styles.entryContent, { flex: 2, alignSelf:"flex-end" }]}>
+                    <Text style={[styles.entryContent, { flex: 2, alignSelf: "center" }]}>
                         {data[key].content}
                     </Text>
+                    <MButton
+                        color="#85C1E9"
+                        name={key}
+                        title="Edit"
+                    />
                 </View>
             )
         }
@@ -49,7 +63,7 @@ const InventoryViewer = ({ navigation, route }) => {
             </View>
             <Button
                 color="#85C1E9"
-                onPress={() => navigation.navigate("Editor")}
+                onPress={() => navigation.navigate("Editor", { name: "" })}
                 title="Edit"
             />
 
