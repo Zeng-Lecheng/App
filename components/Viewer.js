@@ -53,7 +53,8 @@ const InventoryViewer = ({ navigation, route }) => {
         delete newData[name]
         setData(newData)
         storeData(data)
-        navigation.push("Viewer")
+        navigation.setParams({isFocused: false})
+        navigation.setParams({isFocused: true})
     }
 
     const listInventory = () => {

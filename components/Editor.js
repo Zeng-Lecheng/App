@@ -29,24 +29,6 @@ const Editor = ({ navigation, route }) => {
         }
     }
 
-    const saveHint = () => {
-        if (saveStatus) {
-            return (
-                <View>
-                    <Text style={[styles.entryContent, { color: "red" }]}>
-                        Saved
-                    </Text>
-                </View>
-            )
-        } else {
-            return (
-                <View>
-
-                </View>
-            )
-        }
-    }
-
     const save = () => {
         var newData = data
         newData[nameInput] = {
@@ -93,10 +75,10 @@ const Editor = ({ navigation, route }) => {
                 onPress={() => {
                     setSaveStatus(true)
                     save()
+                    navigation.goBack()
                 }}
                 title="Save"
             />
-            {saveHint()}
             <Button
                 color="#85C1E9"
                 onPress={() => {
