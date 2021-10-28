@@ -13,7 +13,7 @@ const InventoryViewer = ({ navigation, route }) => {
             <Button
                 title={props.title}
                 color={props.color}
-                onPress={() => { navigation.navigate("Editor", { name: props.name }) }}
+                onPress={() => { navigation.navigate("Editor", { name: props.name, content: props.content }) }}
             />
         )
     }
@@ -53,8 +53,8 @@ const InventoryViewer = ({ navigation, route }) => {
         delete newData[name]
         setData(newData)
         storeData(data)
-        navigation.setParams({isFocused: false})
-        navigation.setParams({isFocused: true})
+        navigation.setParams({ isFocused: false })
+        navigation.setParams({ isFocused: true })
     }
 
     const listInventory = () => {
@@ -74,6 +74,7 @@ const InventoryViewer = ({ navigation, route }) => {
                     <EButton
                         color="#85C1E9"
                         name={key}
+                        content={data[key].content}
                         title="Edit"
                     />
                     <DButton
@@ -96,7 +97,7 @@ const InventoryViewer = ({ navigation, route }) => {
             </View>
             <Button
                 color="#85C1E9"
-                onPress={() => navigation.navigate("Editor", { name: "" })}
+                onPress={() => navigation.navigate("Editor", {})}
                 title="Add"
             />
 

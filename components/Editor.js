@@ -6,8 +6,7 @@ import styles from './Style'
 const Editor = ({ navigation, route }) => {
     let [data, setData] = useState({})
     let [nameInput, setNameInput] = useState(route.params.name)
-    let [contentInput, setContentInput] = useState("")
-    let [saveStatus, setSaveStatus] = useState(false)
+    let [contentInput, setContentInput] = useState(route.params.content)
 
     const getData = async () => {
         try {
@@ -52,7 +51,6 @@ const Editor = ({ navigation, route }) => {
                     value={nameInput}
                     onChangeText={(t) => {
                         setNameInput(t)
-                        setSaveStatus(false)
                     }}
                 />
             </View>
@@ -65,7 +63,6 @@ const Editor = ({ navigation, route }) => {
                     value={contentInput}
                     onChangeText={(t) => {
                         setContentInput(t)
-                        setSaveStatus(false)
                     }}
                 />
             </View>
@@ -73,7 +70,6 @@ const Editor = ({ navigation, route }) => {
             <Button
                 color="#85C1E9"
                 onPress={() => {
-                    setSaveStatus(true)
                     save()
                     navigation.goBack()
                 }}
