@@ -15,7 +15,7 @@ const App = () => {
       .catch((error) => {
         console.log(error);
       })
-  }
+  };
 
   const renderItem = ({ item }) => (
     <View style={styles.item}>
@@ -28,7 +28,7 @@ const App = () => {
       return (
         <View style={{ padding: 5 }}>
           <Text
-            style={{ fontSize: 28, color: "blue" }}
+            style={styles.toggle}
             onPress={() => {
               setShow(false);
               setRepoData([{"name": "NONE"}]);
@@ -37,12 +37,12 @@ const App = () => {
             hide repositories
           </Text>
         </View>
-      )
+      );
     } else {
       return (
         <View style={{ padding: 5 }}>
           <Text
-            style={{ fontSize: 28, color: "blue" }}
+            style={styles.toggle}
             onPress={() => {
               setShow(true);
               getGithub(inputID);
@@ -51,9 +51,9 @@ const App = () => {
             show repositories
           </Text>
         </View>
-      )
-    }
-  }
+      );
+    };
+  };
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -61,11 +61,11 @@ const App = () => {
         <Text style={{ color: "red", fontSize: 42 }}>Github Viewer</Text>
       </View>
       <View style={{ flexDirection: "row" }}>
-        <Text style={{ fontSize: 40 }}> github Id: </Text>
+        <Text style={styles.input}> github Id: </Text>
         <TextInput
-          onChangeText={(t) => { setInputID(t) }}
+          onChangeText={(t) => { setInputID(t); }}
           value={inputID}
-          style={{ fontSize: 40 }}
+          style={styles.input}
           placeholder={"userid"}
         />
       </View>
@@ -79,10 +79,10 @@ const App = () => {
       <Text style={styles.debug}>DEBUGGING</Text>
       <Text style={styles.debug}>userId: {inputID}</Text>
       <Text style={styles.debug}>showReps: {`${show}`}</Text>
-      <Text style={styles.debug}>repos.length: {repoData.length}</Text>
+      <Text style={styles.debug}> repos.length: {repoData.length}</Text>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -100,6 +100,13 @@ const styles = StyleSheet.create({
   },
   debug: {
     fontSize: 16,
+  },
+  toggle: {
+    fontSize: 24,
+    color: "blue" 
+  },
+  input: {
+    fontSize: 32
   }
 });
 
