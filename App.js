@@ -1,40 +1,106 @@
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import HomeScreen from './components/Home'
-import InventoryViewer from './components/Viewer'
-import Editor from './components/Editor'
-import About from './components/About'
-
-const Stack = createNativeStackNavigator()
+import React, { useState } from 'react';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, TextInput } from 'react-native';
+import axios from 'axios';
 
 const App = () => {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen
-                    name="Home"
-                    component={HomeScreen}
-                    options={{ title: 'Inventory Tracker' }}
-                />
-                <Stack.Screen 
-                    name="Viewer" 
-                    component={InventoryViewer} 
-                    options={{title: "Your inventory"}}
-                />
-                <Stack.Screen
-                    name="Editor"
-                    component={Editor}
-                    options={{title: "Editor"}}
-                />
-                <Stack.Screen
-                    name="About"
-                    component={About}
-                    options={{title: "About"}}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
-};
+  const [inputID, setInputID] = useState("");
+  const [show, setShow] = useState(false);
+  const [repoData, setRepoData] = useState([{"name": "NONE"}]);
 
-export default App
+  const getGithub = (userID) => {
+    axios.get(`https://api.github.com/users/${userID}/repos`)
+      .then((response) => {
+        setRepoData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
+  const renderItem = ({ item }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>{item.name}</Text>
+    </View>
+  );
+
+  const toggleShow = () => {
+    if (show) {
+      return (
+        <View style={{ padding: 5 }}>
+          <Text
+            style={{ fontSize: 28, color: "blue" }}
+            onPress={() => {
+              setShow(false);
+              setRepoData([{"name": "NONE"}]);
+            }}
+          >
+            hide repositories
+          </Text>
+        </View>
+      )
+    } else {
+      return (
+        <View style={{ padding: 5 }}>
+          <Text
+            style={{ fontSize: 28, color: "blue" }}
+            onPress={() => {
+              setShow(true);
+              getGithub(inputID);
+            }}
+          >
+            show repositories
+          </Text>
+        </View>
+      )
+    }
+  }
+
+  return (
+    <SafeAreaView style={[styles.container]}>
+      <View style={{ height: 105, backgroundColor: "black", alignItems: "center", justifyContent: "center" }}>
+        <Text style={{ color: "red", fontSize: 42 }}>Github Viewer</Text>
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={{ fontSize: 40 }}> github Id: </Text>
+        <TextInput
+          onChangeText={(t) => { setInputID(t) }}
+          value={inputID}
+          style={{ fontSize: 40 }}
+          placeholder={"userid"}
+        />
+      </View>
+      {toggleShow()}
+      <FlatList
+        data={repoData}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.name}
+        alignItems="flex-start"
+      />
+      <Text style={styles.debug}>DEBUGGING</Text>
+      <Text style={styles.debug}>userId: {inputID}</Text>
+      <Text style={styles.debug}>showReps: {`${show}`}</Text>
+      <Text style={styles.debug}>repos.length: {repoData.length}</Text>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    backgroundColor: 'lightgray',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
+  },
+  debug: {
+    fontSize: 16,
+  }
+});
+
+export default App;
