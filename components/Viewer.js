@@ -107,13 +107,12 @@ const InventoryViewer = ({ navigation, route }) => {
 
     return (
         <View style={styles.view}>
-            {/* <View style={[styles.view, { flex: 1 }]}> */}
+
             <FlatList
                 data={Object.values(data)}
                 renderItem={itemRender}
                 keyExtractor={item => item.name}
             />
-            {/* </View> */}
             <View style={[styles.view]}>
                 <Button
                     color="#85C1E9"

@@ -10,13 +10,11 @@ const styles = StyleSheet.create(
 
         entryName: {
             fontSize: 20,
-            // width: "50%"
             flexBasis: 100
         },
 
         entryContent: {
-            fontSize: 16,
-            // width: "50%"
+            fontSize: 20,
             textAlignVertical: "center",
             justifyContent: "flex-end",
             flexBasis: 100,
