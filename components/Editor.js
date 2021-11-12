@@ -44,7 +44,7 @@ const Editor = ({ navigation, route }) => {
         <View style={styles.view}>
             <View style={[styles.view, { flexDirection: "row" }]}>
                 <Text style={styles.entryName}>
-                    Name: 
+                    Name:
                 </Text>
                 <TextInput
                     style={styles.input}
@@ -56,7 +56,7 @@ const Editor = ({ navigation, route }) => {
             </View>
             <View style={[styles.view, { flexDirection: "row" }]}>
                 <Text style={styles.entryName}>
-                    Content: 
+                    Content:
                 </Text>
                 <TextInput
                     style={styles.input}
@@ -66,29 +66,34 @@ const Editor = ({ navigation, route }) => {
                     }}
                 />
             </View>
-
-            <Button
-                color="#85C1E9"
-                onPress={() => {
-                    save()
-                    navigation.goBack()
-                }}
-                title="Save"
-            />
-            <Button
-                color="#85C1E9"
-                onPress={() => {
-                    navigation.navigate("Viewer")
-                }}
-                title="Back"
-            />
-            <Button
-                color="#85C1E9"
-                onPress={() => {
-                    navigation.navigate("Home")
-                }}
-                title="Home"
-            />
+            <View style={[styles.view]}>
+                <Button
+                    color="#85C1E9"
+                    onPress={() => {
+                        save()
+                        navigation.goBack()
+                    }}
+                    title="Save"
+                />
+            </View>
+            <View style={styles.view}>
+                <Button
+                    color="#85C1E9"
+                    onPress={() => {
+                        navigation.navigate("Viewer")
+                    }}
+                    title="Back"
+                />
+            </View>
+            <View style={styles.view}>
+                <Button
+                    color="#85C1E9"
+                    onPress={() => {
+                        navigation.navigate("Home")
+                    }}
+                    title="Home"
+                />
+            </View>
         </View>
     )
 }

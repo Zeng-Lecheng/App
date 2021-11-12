@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Component } from 'react'
-import { Text, Button, View, StyleSheet } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { Text, Button, View, FlatList } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import styles from './Style'
 import { useIsFocused } from '@react-navigation/native'
@@ -88,24 +88,46 @@ const InventoryViewer = ({ navigation, route }) => {
         return result
     }
 
+    const itemRender = ({ item }) => {
+        return (
+            <View style={{ flexDirection: "row", padding: 5}}>
+                <View style={{ flexDirection: "row", width: "60%" }}>
+                    <Text style={styles.entryName}>{item.name}</Text>
+                    <Text style={[styles.entryContent]}>{item.content}</Text>
+                </View>
+                <View style={{alignSelf: "flex-end", flexDirection: "row", paddingLeft: 10}}>
+                    <EButton color="#85C1E9" name={item.name} content={item.content} title="Edit" />
+                    <DButton color="red" name={item.name} title="Delete" />
+                </View>
+            </View>
+        )
+    }
+
     useEffect(() => { getData() }, [isFocused])
 
     return (
         <View style={styles.view}>
+            {/* <View style={[styles.view, { flex: 1 }]}> */}
+            <FlatList
+                data={Object.values(data)}
+                renderItem={itemRender}
+                keyExtractor={item => item.name}
+            />
+            {/* </View> */}
             <View style={[styles.view]}>
-                {listInventory()}
+                <Button
+                    color="#85C1E9"
+                    onPress={() => navigation.navigate("Editor", {})}
+                    title="Add"
+                />
             </View>
-            <Button
-                color="#85C1E9"
-                onPress={() => navigation.navigate("Editor", {})}
-                title="Add"
-            />
-
-            <Button
-                color="#85C1E9"
-                onPress={() => navigation.navigate("Home")}
-                title="Home"
-            />
+            <View style={[styles.view]}>
+                <Button
+                    color="#85C1E9"
+                    onPress={() => navigation.navigate("Home")}
+                    title="Home"
+                />
+            </View>
         </View>
     )
 
