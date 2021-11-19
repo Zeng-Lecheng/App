@@ -67,7 +67,7 @@ const App = () => {
                 >
                     REFRESH BBOARDS
                 </Text>
-                <View style={{ paddingBottom: 5 }}>
+                <View style={{ paddingBottom: 5, width: "60%" }}>
                     <FlatList
                         data={BBoardNames}
                         renderItem={renderBBoardNames}
@@ -111,7 +111,8 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 16,
         textAlignVertical: "center",
-        padding: 5
+        padding: 5,
+        width: "40%"
     },
     bboardNameContainer: {
         backgroundColor: "black",
