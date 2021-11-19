@@ -43,12 +43,7 @@ const App = () => {
     );
 
     const renderBBoardContent = ({ item }) => (
-        <View sytle={{
-            backgroundColor: "gray",
-            padding: 20,
-            marginHorizontal: 8,
-            marginVertical: 0
-        }}>
+        <View style={styles.bboardContentContainer}>
             <Text style={{ fontSize: 32 }}>{item.title}</Text>
             <Text style={{ fontSize: 20 }}>{item.text}</Text>
         </View>
@@ -86,12 +81,13 @@ const App = () => {
                     {selected}
                 </Text>
             </View>
-            <FlatList
-                data={BBoardContent}
-                renderItem={renderBBoardContent}
-                keyExtractor={(item) => item._id}
-                alignItems="flex-start"
-            />
+            <View style={{ alignItems: "flex-start" }}>
+                <FlatList
+                    data={BBoardContent}
+                    renderItem={renderBBoardContent}
+                    keyExtractor={(item) => item._id}
+                />
+            </View>
             <Text>DEBUGGING</Text>
             <Text>bb:{selected}</Text>
             <Text>show:false</Text>
@@ -117,9 +113,10 @@ const styles = StyleSheet.create({
     },
     bboardContentContainer: {
         backgroundColor: "lightgray",
-        padding: 20,
         marginHorizontal: 8,
-        marginVertical: 0
+        marginVertical: 0,
+        marginVertical: 10,
+        padding: 10,
     }
 });
 
