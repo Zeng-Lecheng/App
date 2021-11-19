@@ -37,7 +37,7 @@ const App = () => {
                     getBBoardContent(item)
                 }}
             >
-                {item === "" ? " " : item}
+                {item === "" ? "  " : item}
             </Text>
         </View>
     );
@@ -56,24 +56,26 @@ const App = () => {
     }
 
     return (
-        <SafeAreaView style={[styles.container]}>
-            <View style={{ backgroundColor: "black", alignItems: "center", justifyContent: "center" }}>
-                <Text style={{ color: "red", fontSize: 42 }}>BBViewer</Text>
+        <SafeAreaView style={{ flex: 1, justifyContent: "flex-start" }}>
+            <View style={styles.headerContainer}>
+                <Text style={{ color: "red", fontSize: 36 }}>BBViewer</Text>
             </View>
             <View style={{ flexDirection: "row", height: 50 }}>
                 <Text
-                    style={{ backgroundColor: "blue", color: "white", fontSize: 16, textAlignVertical: "center", padding: 5 }}
+                    style={styles.refreshButton}
                     onPress={() => { getBBoardName() }}
                 >
                     REFRESH BBOARDS
                 </Text>
-                <FlatList
-                    data={BBoardNames}
-                    renderItem={renderBBoardNames}
-                    keyExtractor={(item) => item}
-                    alignItems="flex-start"
-                    horizontal={true}
-                />
+                <View style={{ paddingBottom: 5 }}>
+                    <FlatList
+                        data={BBoardNames}
+                        renderItem={renderBBoardNames}
+                        keyExtractor={(item) => item}
+                        alignItems="flex-start"
+                        horizontal={true}
+                    />
+                </View>
             </View>
             <View style={{ flexDirection: "row" }}>
                 <Text style={{ fontSize: 32 }}>Seleted bboard:</Text>
@@ -81,13 +83,13 @@ const App = () => {
                     {selected}
                 </Text>
             </View>
-            <View style={{ alignItems: "flex-start" }}>
-                <FlatList
-                    data={BBoardContent}
-                    renderItem={renderBBoardContent}
-                    keyExtractor={(item) => item._id}
-                />
-            </View>
+
+            <FlatList
+                data={BBoardContent}
+                renderItem={renderBBoardContent}
+                keyExtractor={(item) => item._id}
+            />
+
             <Text>DEBUGGING</Text>
             <Text>bb:{selected}</Text>
             <Text>show:false</Text>
@@ -98,13 +100,23 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    headerContainer: {
+        backgroundColor: "black",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "10%"
+    },
+    refreshButton: {
+        backgroundColor: "blue",
+        color: "white",
+        fontSize: 16,
+        textAlignVertical: "center",
+        padding: 5
     },
     bboardNameContainer: {
         backgroundColor: "black",
         padding: 10,
-        marginVertical: 8,
+        marginVertical: 5,
         marginHorizontal: 8
     },
     BBoardNameText: {
@@ -113,10 +125,10 @@ const styles = StyleSheet.create({
     },
     bboardContentContainer: {
         backgroundColor: "lightgray",
-        marginHorizontal: 8,
-        marginVertical: 0,
-        marginVertical: 10,
-        padding: 10,
+        marginHorizontal: 20,
+        marginVertical: 20,
+        padding: 15,
+        width: "80%"
     }
 });
 
