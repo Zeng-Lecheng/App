@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Text, Button, View, FlatList } from 'react-native'
+import { Text, Button, View, FlatList, TextInput } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import styles from './Style'
 import { useIsFocused } from '@react-navigation/native'
 
 const InventoryViewer = ({ navigation, route }) => {
     const [data, setData] = useState({})
+    const [searchKey, setSearchKey] = useState('')
+    const [displayData, setDisplayData] = useState()
     const isFocused = useIsFocused()
+    const [isSearching, setIsSearching] = useState(false)
+
 
     const EButton = (props) => {
         return (
@@ -57,45 +61,14 @@ const InventoryViewer = ({ navigation, route }) => {
         navigation.setParams({ isFocused: true })
     }
 
-    const listInventory = () => {
-        var result = []
-        for (var key in data) {
-            result.push(
-                <View style={[styles.view, {
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                }]}>
-                    <Text style={[styles.entryName, { flex: 1 }]}>
-                        {key}
-                    </Text>
-                    <Text style={[styles.entryContent, { flex: 2, alignSelf: "center" }]}>
-                        {data[key].content}
-                    </Text>
-                    <EButton
-                        color="#85C1E9"
-                        name={key}
-                        content={data[key].content}
-                        title="Edit"
-                    />
-                    <DButton
-                        color="red"
-                        name={key}
-                        title="Delete"
-                    />
-                </View>
-            )
-        }
-        return result
-    }
-
     const itemRender = ({ item }) => {
         return (
-            <View style={{ flexDirection: "row", padding: 5}}>
+            <View style={{ flexDirection: "row", padding: 5 }}>
                 <View style={{ flexDirection: "row", width: "60%" }}>
                     <Text style={styles.entryName}>{item.name}</Text>
                     <Text style={[styles.entryContent]}>{item.content}</Text>
                 </View>
-                <View style={{alignSelf: "flex-end", flexDirection: "row", paddingLeft: 10}}>
+                <View style={{ alignSelf: "flex-end", flexDirection: "row", paddingLeft: 10 }}>
                     <EButton color="#85C1E9" name={item.name} content={item.content} title="Edit" />
                     <DButton color="red" name={item.name} title="Delete" />
                 </View>
@@ -103,16 +76,64 @@ const InventoryViewer = ({ navigation, route }) => {
         )
     }
 
+    const search = (key) => {
+        let res = []
+
+        if (key === '') {
+            setIsSearching(false)
+            return
+        } else {
+
+            for (const item of Object.values(data)) {
+                const searchable = `${item.name}${item.content}`
+                const found = searchable.match(key)
+                if (found) {
+                    res.push(item)
+                }
+            }
+            setDisplayData(res)
+            setIsSearching(true)
+        }
+    }
+
+    const itemList = () => {
+        if (!isSearching) {
+            return (
+                <FlatList
+                    data={Object.values(data)}
+                    renderItem={itemRender}
+                    keyExtractor={item => item.name}
+                />
+            )
+        } else {
+            return (
+                <FlatList
+                    data={displayData}
+                    renderItem={itemRender}
+                    keyExtractor={item => item.name}
+                />
+            )
+        }
+    }
+
     useEffect(() => { getData() }, [isFocused])
 
     return (
-        <View style={styles.view}>
-
-            <FlatList
-                data={Object.values(data)}
-                renderItem={itemRender}
-                keyExtractor={item => item.name}
-            />
+        <View style={[styles.view, {justifyContent: "flex-start"}]}>
+            <View style={[styles.view, { flexDirection: "row", width: "100%", justifyContent: "space-around" }]}>
+                <TextInput
+                    onChangeText={(t) => { setSearchKey(t) }}
+                    style={[styles.input]}
+                />
+                <Button
+                    onPress={() => { search(searchKey) }}
+                    color="#85C1E9"
+                    title="Search"
+                />
+            </View>
+            <View style={[styles.view, {height: "80%"}]}>
+                {itemList()}
+            </View>
             <View style={[styles.view]}>
                 <Button
                     color="#85C1E9"
