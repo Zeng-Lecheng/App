@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Text, Button, View, FlatList, TextInput } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import styles from './Style'
+import styles, { colors } from './Style'
 import { useIsFocused } from '@react-navigation/native'
 
 const InventoryViewer = ({ navigation, route }) => {
@@ -69,8 +69,8 @@ const InventoryViewer = ({ navigation, route }) => {
                     <Text style={[styles.entryContent]}>{item.content}</Text>
                 </View>
                 <View style={{ alignSelf: "flex-end", flexDirection: "row", paddingLeft: 10 }}>
-                    <EButton color="#85C1E9" name={item.name} content={item.content} title="Edit" />
-                    <DButton color="red" name={item.name} title="Delete" />
+                    <EButton color={colors.buttonColorBlue} name={item.name} content={item.content} title="Edit" />
+                    <DButton color={colors.buttonColorDanger} name={item.name} title="Delete" />
                 </View>
             </View>
         )
@@ -119,11 +119,12 @@ const InventoryViewer = ({ navigation, route }) => {
     useEffect(() => { getData() }, [isFocused])
 
     return (
-        <View style={[styles.view, {justifyContent: "flex-start"}]}>
+        <View style={[styles.view, { justifyContent: "flex-start" }]}>
             <View style={[styles.view, { flexDirection: "row", width: "100%", justifyContent: "space-around" }]}>
                 <TextInput
                     onChangeText={(t) => { setSearchKey(t) }}
                     style={[styles.input]}
+                    placeholder="Search items"
                 />
                 <Button
                     onPress={() => { search(searchKey) }}
@@ -131,19 +132,19 @@ const InventoryViewer = ({ navigation, route }) => {
                     title="Search"
                 />
             </View>
-            <View style={[styles.view, {height: "80%"}]}>
+            <View style={[styles.view, { height: "80%" }]}>
                 {itemList()}
             </View>
             <View style={[styles.view]}>
                 <Button
-                    color="#85C1E9"
+                    color={colors.buttonColorBlue}
                     onPress={() => navigation.navigate("Editor", {})}
                     title="Add"
                 />
             </View>
             <View style={[styles.view]}>
                 <Button
-                    color="#85C1E9"
+                    color={colors.buttonColorBlue}
                     onPress={() => navigation.navigate("Home")}
                     title="Home"
                 />

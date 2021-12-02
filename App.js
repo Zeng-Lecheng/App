@@ -17,15 +17,15 @@ const App = () => {
                     component={HomeScreen}
                     options={{ title: 'Inventory Tracker' }}
                 />
-                <Stack.Screen 
-                    name="Viewer" 
-                    component={InventoryViewer} 
-                    options={{title: "Your inventory"}}
+                <Stack.Screen
+                    name="Viewer"
+                    component={InventoryViewer}
+                    options={{ title: "Your inventory" }}
                 />
                 <Stack.Screen
                     name="Editor"
                     component={Editor}
-                    options={{title: "Editor"}}
+                    options={{ title: "Editor" }}
                 />
                 <Stack.Screen
                     name="About"

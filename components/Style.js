@@ -30,4 +30,11 @@ const styles = StyleSheet.create(
     }
 )
 
+const colors = {
+    buttonColorGreen: "#82E0AA",
+    buttonColorBlue: "#85C1E9",
+    buttonColorDanger: "red"
+}
+
 export default styles
+export { colors }
