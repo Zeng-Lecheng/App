@@ -32,9 +32,9 @@ const InventoryViewer = ({ navigation, route }) => {
         )
     }
 
-    const getData = async () => {
+    const getData = async (key) => {
         try {
-            const jsonValue = await AsyncStorage.getItem('@data')
+            const jsonValue = await AsyncStorage.getItem(key)
             if (jsonValue != null) {
                 setData(JSON.parse(jsonValue))
             }
@@ -43,10 +43,10 @@ const InventoryViewer = ({ navigation, route }) => {
         }
     }
 
-    const storeData = async (value) => {
+    const storeData = async (key, value) => {
         try {
             const jsonValue = JSON.stringify(value)
-            await AsyncStorage.setItem('@data', jsonValue)
+            await AsyncStorage.setItem(key, jsonValue)
         } catch (e) {
             console.log(e)
         }
@@ -56,7 +56,9 @@ const InventoryViewer = ({ navigation, route }) => {
         var newData = data
         delete newData[name]
         setData(newData)
-        storeData(data)
+        storeData('@data', data)
+        search(searchKey)
+        storeData('@last_update', Date.now())
         navigation.setParams({ isFocused: false })
         navigation.setParams({ isFocused: true })
     }
@@ -102,7 +104,7 @@ const InventoryViewer = ({ navigation, route }) => {
                 <FlatList
                     data={Object.values(data)}
                     renderItem={itemRender}
-                    keyExtractor={item => item.name}
+                    keyExtractor={(item) => {return item.name}}
                 />
             )
         } else {
@@ -110,13 +112,13 @@ const InventoryViewer = ({ navigation, route }) => {
                 <FlatList
                     data={displayData}
                     renderItem={itemRender}
-                    keyExtractor={item => item.name}
+                    keyExtractor={(item) => {return item.name}}
                 />
             )
         }
     }
 
-    useEffect(() => { getData() }, [isFocused])
+    useEffect(() => { getData('@data') }, [isFocused])
 
     return (
         <View style={[styles.view, { justifyContent: "flex-start" }]}>

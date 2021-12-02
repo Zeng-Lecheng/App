@@ -8,9 +8,9 @@ const Editor = ({ navigation, route }) => {
     let [nameInput, setNameInput] = useState(route.params.name)
     let [contentInput, setContentInput] = useState(route.params.content)
 
-    const getData = async () => {
+    const getData = async (key) => {
         try {
-            const jsonValue = await AsyncStorage.getItem('@data')
+            const jsonValue = await AsyncStorage.getItem(key)
             if (jsonValue != null) {
                 setData(JSON.parse(jsonValue))
             }
@@ -19,10 +19,10 @@ const Editor = ({ navigation, route }) => {
         }
     }
 
-    const storeData = async (value) => {
+    const storeData = async (key, value) => {
         try {
             const jsonValue = JSON.stringify(value)
-            await AsyncStorage.setItem('@data', jsonValue)
+            await AsyncStorage.setItem(key, jsonValue)
         } catch (e) {
             console.log(e)
         }
@@ -35,10 +35,11 @@ const Editor = ({ navigation, route }) => {
             content: contentInput
         }
         setData(newData)
-        storeData(data)
+        storeData('@data', data)
+        storeData('@last_update', Date.now())
     }
 
-    useEffect(() => { getData() }, [])
+    useEffect(() => { getData('@data') }, [])
 
     return (
         <View style={styles.view}>
