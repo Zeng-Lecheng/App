@@ -8,11 +8,11 @@ const Editor = ({ navigation, route }) => {
     let [nameInput, setNameInput] = useState(route.params.name)
     let [contentInput, setContentInput] = useState(route.params.content)
 
-    const getData = async (key) => {
+    const getData = async (key, callback) => {
         try {
             const jsonValue = await AsyncStorage.getItem(key)
             if (jsonValue != null) {
-                setData(JSON.parse(jsonValue))
+                callback(JSON.parse(jsonValue))
             }
         } catch (e) {
             console.log(e)
@@ -36,10 +36,10 @@ const Editor = ({ navigation, route }) => {
         }
         setData(newData)
         storeData('@data', data)
-        storeData('@last_update', Date.now())
+        storeData('@last_update', Date.now() / 1000)
     }
 
-    useEffect(() => { getData('@data') }, [])
+    useEffect(() => { getData('@data', setData) }, [])
 
     return (
         <View style={styles.view}>

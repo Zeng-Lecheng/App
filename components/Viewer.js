@@ -3,14 +3,15 @@ import { Text, Button, View, FlatList, TextInput } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import styles, { colors } from './Style'
 import { useIsFocused } from '@react-navigation/native'
+import Synchronizer from './Sync'
 
 const InventoryViewer = ({ navigation, route }) => {
     const [data, setData] = useState({})
+    const [uid, setUid] = useState()
     const [searchKey, setSearchKey] = useState('')
     const [displayData, setDisplayData] = useState()
     const isFocused = useIsFocused()
     const [isSearching, setIsSearching] = useState(false)
-
 
     const EButton = (props) => {
         return (
@@ -32,11 +33,11 @@ const InventoryViewer = ({ navigation, route }) => {
         )
     }
 
-    const getData = async (key) => {
+    const getData = async (key, callback) => {
         try {
             const jsonValue = await AsyncStorage.getItem(key)
             if (jsonValue != null) {
-                setData(JSON.parse(jsonValue))
+                callback(JSON.parse(jsonValue))
             }
         } catch (e) {
             console.log(e)
@@ -58,7 +59,7 @@ const InventoryViewer = ({ navigation, route }) => {
         setData(newData)
         storeData('@data', data)
         search(searchKey)
-        storeData('@last_update', Date.now())
+        storeData('@last_update', Date.now() / 1000)
         navigation.setParams({ isFocused: false })
         navigation.setParams({ isFocused: true })
     }
@@ -104,7 +105,7 @@ const InventoryViewer = ({ navigation, route }) => {
                 <FlatList
                     data={Object.values(data)}
                     renderItem={itemRender}
-                    keyExtractor={(item) => {return item.name}}
+                    keyExtractor={(item) => { return item.name }}
                 />
             )
         } else {
@@ -112,13 +113,19 @@ const InventoryViewer = ({ navigation, route }) => {
                 <FlatList
                     data={displayData}
                     renderItem={itemRender}
-                    keyExtractor={(item) => {return item.name}}
+                    keyExtractor={(item) => { return item.name }}
                 />
             )
         }
     }
 
-    useEffect(() => { getData('@data') }, [isFocused])
+    useEffect(() => {
+        getData('@data', setData)
+        getData('@uid', setUid)
+        if (! uid) {
+            setUid('uid')
+        }
+    }, [isFocused])
 
     return (
         <View style={[styles.view, { justifyContent: "flex-start" }]}>
@@ -134,7 +141,7 @@ const InventoryViewer = ({ navigation, route }) => {
                     title="Search"
                 />
             </View>
-            <View style={[styles.view, { height: "80%" }]}>
+            <View style={[styles.view, { height: "70%" }]}>
                 {itemList()}
             </View>
             <View style={[styles.view]}>
@@ -149,6 +156,13 @@ const InventoryViewer = ({ navigation, route }) => {
                     color={colors.buttonColorBlue}
                     onPress={() => navigation.navigate("Home")}
                     title="Home"
+                />
+            </View>
+            <View style={[styles.view]}>
+                <Button
+                    color={colors.buttonColorGreen}
+                    onPress={() => navigation.navigate("Sync", { uid: uid })}
+                    title="Synchronize"
                 />
             </View>
         </View>

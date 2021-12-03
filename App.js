@@ -5,6 +5,7 @@ import HomeScreen from './components/Home'
 import InventoryViewer from './components/Viewer'
 import Editor from './components/Editor'
 import About from './components/About'
+import Synchronizer from './components/Sync'
 
 const Stack = createNativeStackNavigator()
 
@@ -30,7 +31,12 @@ const App = () => {
                 <Stack.Screen
                     name="About"
                     component={About}
-                    options={{title: "About"}}
+                    options={{ title: "About" }}
+                />
+                <Stack.Screen
+                    name="Sync"
+                    component={Synchronizer}
+                    options={{ title: "Synchronize" }}
                 />
             </Stack.Navigator>
         </NavigationContainer>
