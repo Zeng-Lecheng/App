@@ -8,7 +8,7 @@ Users may register a new uid on the sync screen. The server then returns a rando
 
 ## Screen shots
 
-<img src="./docs/Screenshot_1.jpg" width="40%"><img src="./docs/Screenshot_2.jpg" width="40%"><img src="./docs/Screenshot_3.jpg" width="40%"><img src="./docs/Screenshot_3.jpg" width="40%">
+<img src="./docs/Screenshot_1.jpg" width="40%"><img src="./docs/Screenshot_2.jpg" width="40%"><img src="./docs/Screenshot_3.jpg" width="40%"><img src="./docs/Screenshot_4.jpg" width="40%">
 
 - Upper left: Viewer screen
 - Upper right: Search specific items
