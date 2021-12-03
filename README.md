@@ -1,10 +1,14 @@
 # Inventory Tracker
 
-This app is an inventory tracker, which tracks all your food, medicine and any other things you have. Never forget any tiny object in your house any more. 
+This app is an inventory tracker, which tracks all your food, medicine and any other things you have. Never forget any tiny object in your house any more. The app provides search and synchronization functions.
+
+## Synchronization
+
+Users may register a new uid on the sync screen. The server then returns a randomely generated uid to user. Copying this uid to other devices and login enables users to have the same content on multiple devices.
 
 ## Screen shots
 
-<img src="./docs/Screenshot_1.jpg" width="30%"><img src="./docs/Screenshot_2.jpg" width="30%"><img src="./docs/Screenshot_3.jpg" width="30%">
+<img src="./docs/Screenshot_1.jpg" width="40%"><img src="./docs/Screenshot_2.jpg" width="40%"><img src="./docs/Screenshot_3.jpg" width="40%"><img src="./docs/Screenshot_3.jpg" width="40%">
 
 - Left: Home screen
 - Middle: Inventory viewer
