@@ -6,7 +6,6 @@ import axios from 'axios'
 import { useIsFocused } from '@react-navigation/native'
 
 const serverurl = 'https://gentle-wildwood-07979.herokuapp.com/'
-// const serverurl = 'http://127.0.0.1:5000/'
 
 const Synchronizer = ({ navigation, route }) => {
     let [uid, setUid] = useState('')
@@ -124,7 +123,7 @@ const Synchronizer = ({ navigation, route }) => {
             return <View></View>
         } else {
             return (
-                <View>
+                <View style={[styles.view]}>
                     <Text style={styles.entryContent}>
                         {text}
                     </Text>
