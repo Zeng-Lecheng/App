@@ -10,9 +10,10 @@ Users may register a new uid on the sync screen. The server then returns a rando
 
 <img src="./docs/Screenshot_1.jpg" width="40%"><img src="./docs/Screenshot_2.jpg" width="40%"><img src="./docs/Screenshot_3.jpg" width="40%"><img src="./docs/Screenshot_3.jpg" width="40%">
 
-- Left: Home screen
-- Middle: Inventory viewer
-- Right: Editor (by click "add" or "edit" button)
+- Upper left: Viewer screen
+- Upper right: Search specific items
+- Lower left: Editor (by click "add" or "edit" button)
+- Lower right: Synchronize screen
 
 ## Developer note
 
